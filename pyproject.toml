@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "coddy-assistant"
+version = "0.1.0"
+description = "Local-first personal AI assistant with an Obsidian Markdown memory vault"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "All rights reserved"}
+dependencies = ["openai-agents>=0.2"]
+
+[project.scripts]
+coddy = "coddy.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
