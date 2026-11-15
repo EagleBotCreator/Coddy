@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.22)
 project(coddy LANGUAGES C CXX)
 set(CMAKE_CXX_STANDARD 17)
+# Keep inference kernels optimized in the personal-use debug APK as well.
+set(CMAKE_C_FLAGS_DEBUG "-O3 -g -DNDEBUG" CACHE STRING "" FORCE)
+set(CMAKE_CXX_FLAGS_DEBUG "-O3 -g -DNDEBUG" CACHE STRING "" FORCE)
 set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
 set(LLAMA_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(LLAMA_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
