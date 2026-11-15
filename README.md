@@ -7,6 +7,10 @@ Coddy is a **Windows-first Python CLI** built with the OpenAI Agents SDK. Conver
 > [!IMPORTANT]
 > Coddy v0.1 is an **MVP**, not a finished voice companion. Chat, vault storage, memory search, approval queue, and optional Windows speech *output* are implemented. Continuous microphone conversation, prompt-generated custom GPT-Live voices, automatic semantic retrieval, and autonomous memory consolidation are future phases. No API key, private memories, or vault files belong in this public repository.
 
+## Android companion
+
+The native Android companion lives in [`android/`](android/README.md). It adds on-device GGUF chat, read-only approved-memory snapshots, a separate proposal queue and optional AnythingLLM Desktop connectivity. The Windows CLI remains independent. See the Android guide for installation, model setup and explicit offline transfer.
+
 ## Requirements
 
 - Windows 10 or 11 (macOS/Linux text chat may work; speech output is Windows-only)
