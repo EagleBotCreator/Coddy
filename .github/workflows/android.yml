@@ -18,6 +18,10 @@ jobs:
           distribution: temurin
           java-version: '21'
       - uses: android-actions/setup-android@v3
+        with:
+          cmdline-tools-version: 13114758
+          packages: platform-tools
+          log-accepted-android-sdk-licenses: false
       - uses: gradle/actions/setup-gradle@v4
       - name: Install pinned Android toolchain
         run: sdkmanager "platforms;android-36" "build-tools;36.0.0" "ndk;28.2.13676358" "cmake;3.22.1"
@@ -27,6 +31,35 @@ jobs:
         run: |
           chmod +x android/gradlew
           android/gradlew -p android :core:test :app:lintDebug :app:assembleDebug :app:assembleDebugAndroidTest --console=plain
+      - name: Enable emulator acceleration
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - name: Check Android workflows and native inference
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 35
+          target: google_atd
+          arch: x86_64
+          profile: pixel_7
+          disable-animations: true
+          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -camera-back none -camera-front none
+          script: |
+            adb install -r -t android/app/build/outputs/apk/debug/app-debug.apk
+            adb install -r -t android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
+            adb shell pm clear dev.coddy.android
+            adb shell run-as dev.coddy.android mkdir -p files
+            curl --fail --location --silent --show-error https://huggingface.co/ggml-org/models/resolve/main/tinyllamas/stories260K.gguf --output "$RUNNER_TEMP/coddy-smoke.gguf"
+            echo "270cba1bd5109f42d03350f60406024560464db173c0e387d91f0426d3bd256d  $RUNNER_TEMP/coddy-smoke.gguf" | sha256sum --check
+            adb shell "run-as dev.coddy.android sh -c 'cat > files/smoke.gguf'" < "$RUNNER_TEMP/coddy-smoke.gguf"
+            mkdir -p android/app/build/reports/device
+            adb shell am instrument -w -r -e ggufPath /data/user/0/dev.coddy.android/files/smoke.gguf dev.coddy.android.test/androidx.test.runner.AndroidJUnitRunner | tee android/app/build/reports/device/tests.log
+            python3 -c "from pathlib import Path; text=Path('android/app/build/reports/device/tests.log').read_text(); assert 'OK (' in text and 'FAILURES!!!' not in text and 'INSTRUMENTATION_FAILED' not in text, text"
+            adb shell pm clear dev.coddy.android
+            adb shell am start -n dev.coddy.android/.MainActivity
+            sleep 5
+            adb exec-out screencap -p > android/app/build/reports/device/chat.png
       - uses: actions/upload-artifact@v4
         with:
           name: Coddy-Android-debug
@@ -39,6 +72,7 @@ jobs:
           path: |
             android/core/build/reports/tests
             android/app/build/reports/lint-results-debug.html
+            android/app/build/reports/device
 
   transfer:
     strategy:
