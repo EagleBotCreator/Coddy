@@ -1,0 +1,11 @@
+<resources>
+    <color name="coddy_primary">#18364A</color>
+    <color name="coddy_secondary">#527C8E</color>
+    <color name="coddy_accent">#A74D33</color>
+    <color name="coddy_background">#EEF3F8</color>
+    <color name="coddy_surface">#FAFCFD</color>
+    <color name="coddy_success">#24685E</color>
+    <color name="coddy_danger">#A12D39</color>
+    <color name="coddy_muted">#4F6575</color>
+    <color name="coddy_border">#CAD7DF</color>
+</resources>

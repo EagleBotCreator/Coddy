@@ -14,3 +14,15 @@ vault/
 Coddy Memory/
 local-data/
 *.log
+
+# Android build products and private device state
+android/.gradle/
+android/**/build/
+android/**/.cxx/
+android/local.properties
+*.jks
+*.keystore
+.superpowers/
+
+# Generated audit report for the current workspace
+/premium-audit.json
