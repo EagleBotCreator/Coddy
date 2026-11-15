@@ -111,3 +111,7 @@ The tests do not use an API key or touch your real Obsidian vault.
 ## Roadmap
 
 See [`docs/superpowers/plans/2026-11-10-coddy-assistant.md`](docs/superpowers/plans/2026-11-10-coddy-assistant.md) for the implementation roadmap and acceptance criteria.
+
+## ChatGPT Project instructions
+
+The [ChatGPT Project bundle](docs/chatgpt-project/README.md) contains a [workflow router](docs/chatgpt-project/PROJECT_INSTRUCTIONS.md) and ten reference procedures for memory, continuity, research, voice style, and tool use. Follow the bundle's installation instructions to use it in a ChatGPT Project. These documents are reference guidance; adding them to this repository does not enable automatic execution in the Python CLI.
