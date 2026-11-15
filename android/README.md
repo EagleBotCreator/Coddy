@@ -10,7 +10,7 @@ This is a personal-use debug build for Android 8+; no Play Store publication, mo
 
 ## Start local chat
 
-1. Obtain an instruction-tuned **GGUF** model from its publisher or a trusted model distributor. Start small: approximately 0.5–1.5B parameters, quantized. Check that the model's license permits your use.
+1. Download an instruction-tuned **GGUF** model. For a small first model, open the official [Qwen2.5-0.5B-Instruct-GGUF page](https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct-GGUF), choose **Files and versions**, and download its **Q4_K_M** GGUF file. You can use another compatible instruction model under its publisher's license.
 2. In Coddy, open **Connect → Choose GGUF model** and select the downloaded file.
 3. Wait for **Model loaded**. Import makes a private copy, so leave space for both copies during setup.
 4. Open **Chat**. Local mode never falls back to an online provider.

@@ -24,6 +24,10 @@ A fresh reviewer identified and the implementation addressed:
 - Saving-state protection and preservation of unsaved form edits.
 
 ## Device verification
-An isolated API 35 x86_64 software emulator successfully booted and installed the app. The first test attempt stopped on a harness file-copy setup error before any app tests; that harness was corrected. UI, lifecycle, backup recovery, token-binding and tiny-model generation checks are running in a clean test install. Record their final results before declaring device verification complete.
+The hosted API 35 x86_64 emulator completed **6 device tests**: chat/memory/proposal UI flow; persistence after ViewModel clearing; recovery of AtomicFile backups; invalid-model handling; native generation from a separately supplied GGUF fixture; and encryption bound to the selected desktop destination.
 
-No physical Android phone or user's real Obsidian vault has been accessed.
+Verified run: https://github.com/EagleBotCreator/Coddy/actions/runs/43764806394
+
+The local software emulator booted and installed the APK but its test harness/package service was unreliable. Hosted accelerated testing supplied the device evidence. Native kernels are additionally compiled with verified -O3 flags for the delivered personal-use APK. The PR workflow reruns these checks on code changes.
+
+No physical Android phone or user's real Obsidian vault has been accessed. The fixture proves native inference execution; response quality and speed depend on the model and the phone.

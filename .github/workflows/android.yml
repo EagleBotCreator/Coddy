@@ -1,6 +1,7 @@
 name: Android APK and checks
 on:
   push:
+    branches: [main]
     paths: ['android/**', 'scripts/generate_design_tokens.py', '.github/workflows/android.yml']
   pull_request:
     paths: ['android/**', 'scripts/generate_design_tokens.py', '.github/workflows/android.yml']
@@ -40,7 +41,7 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 35
-          target: google_atd
+          target: google_apis
           arch: x86_64
           profile: pixel_7
           disable-animations: true
@@ -57,6 +58,8 @@ jobs:
             adb shell am instrument -w -r -e ggufPath /data/user/0/dev.coddy.android/files/smoke.gguf dev.coddy.android.test/androidx.test.runner.AndroidJUnitRunner | tee android/app/build/reports/device/tests.log
             python3 -c "from pathlib import Path; text=Path('android/app/build/reports/device/tests.log').read_text(); assert 'OK (' in text and 'FAILURES!!!' not in text and 'INSTRUMENTATION_FAILED' not in text, text"
             adb shell pm clear dev.coddy.android
+            adb shell input keyevent KEYCODE_WAKEUP
+            adb shell wm dismiss-keyguard
             adb shell am start -n dev.coddy.android/.MainActivity
             sleep 5
             adb exec-out screencap -p > android/app/build/reports/device/chat.png

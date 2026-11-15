@@ -40,7 +40,7 @@ Interfaces: AppViewModel exposes immutable UI state and intent functions; shared
 - [x] Establish design tokens, canonical UI behavior and a Canva reference.
 - [x] Build Chat, Memory and Connect with truthful empty/loading/error states.
 - [x] Add model import, snapshot import, read-only detail, reviewed proposal export and persisted drafts.
-- [ ] Exercise narrow layout, keyboard, accessibility labels and restart behavior on a running Android device/emulator.
+- [x] Exercise narrow layout, keyboard, accessibility labels and restart behavior on a running Android device/emulator.
 - [x] Commit app and interface.
 
 ## Task 4: Build, review and delivery
@@ -48,5 +48,5 @@ Files: .github/workflows/android.yml, android/README.md, docs/.../verification.m
 - [x] Run Python regression suite, Kotlin unit suite, Android lint and assembleDebug.
 - [x] Run the design audit and source/credential hygiene checks.
 - [x] Request a fresh whole-change review and fix significant findings.
-- [ ] Push a dedicated feature branch, open a draft PR and check CI.
-- [ ] Deliver APK, GitHub review link, Canva board and honest verification limits.
+- [x] Push a dedicated feature branch, open a draft PR and check CI.
+- [x] Deliver APK, GitHub review link, Canva board and honest verification limits.
