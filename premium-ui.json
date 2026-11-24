@@ -1,0 +1,41 @@
+{
+  "profile": "product-admin",
+  "sourceRoots": [
+    "android/app/src/main/java",
+    "android/core/src/main/kotlin"
+  ],
+  "locale": "en",
+  "canonicalMap": "UX-CONTRACT.md",
+  "requiredCapabilities": [
+    "Form",
+    "Select/Listbox",
+    "Date",
+    "Scrollbar",
+    "Toast",
+    "CRUD"
+  ],
+  "ownership": {
+    "Form": "native",
+    "Select/Listbox": "native",
+    "Date": "native",
+    "Scrollbar": "native",
+    "Toast": "native",
+    "CRUD": "authored"
+  },
+  "requiredCommands": [
+    "unit",
+    "build",
+    "lint",
+    "tokens"
+  ],
+  "commands": {
+    "unit": "android/gradlew -p android :core:test",
+    "build": "android/gradlew -p android :app:assembleDebug",
+    "lint": "android/gradlew -p android :app:lintDebug",
+    "tokens": "python3 scripts/generate_design_tokens.py --check"
+  },
+  "evidence": {
+    "crudFullFlow": "android/app/src/androidTest/java/dev/coddy/android/AppFlowTest.kt",
+    "failurePaths": "android/core/src/test/kotlin/dev/coddy/core/DomainTest.kt"
+  }
+}
